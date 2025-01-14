@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cricket Clash: Outsmart, Outplay, Outlast!</title>
+
+    <!---------============ Google Font Links =========-------->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap 4 CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+    <!-- My custom CSS -->
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+    <!-- Font Awesome 6 CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 game_body">
+          <div class="game_body_back"></div>
+          <header>
+            <div class="row">
+              <div class="col-6">
+                <div class="logo_box">
+                  <span style="color: #228b22">Cricket</span
+                  ><span style="color: #ffd700"
+                    >Clash<span style="color: red">!</span></span
+                  >
+                </div>
+              </div>
+              <div class="col-6"></div>
+            </div>
+          </header>
+          <div class="col-12 welcome">
+            <h2>Welcome to Cricket Clash</h2>
+            <p>
+              Get ready for a thrilling cricket experience in Cricket Clash!
+              Enjoy fast-paced gameplay, exciting challenges, and a whole lot of
+              fun!
+            </p>
+            <a href="#" id="openModalBtn">👉 Click here to learn the rules!</a>
+            <p style="margin-bottom: 40px">
+              Dominate the Pitch! Let the Clash Begin! 🏏🔥
+            </p>
+
+            <h1 style="margin: 0px">Time for Some Fun!</h1>
+            <h3>Choose Your Option.</h3>
+
+            <div class="col-12 choose_btn">
+              <button onclick="playGame('Bat')" class="option">
+                <img src="img/bat.jpg" />
+                <span style="color: lime">Bat</span>
+              </button>
+              <button onclick="playGame('Ball')" class="option">
+                <img src="img/ball.jpg" />
+                <span style="color: red">Ball</span>
+              </button>
+              <button onclick="playGame('Stump')" class="option">
+                <img src="img/stump.jpg" />
+                <span style="color: #ffd700">Stump</span>
+              </button>
+            </div>
+
+            <div class="col-12 follow">
+              <h5>➡️ For More Updates Follow me On:</h5>
+              <ul>
+                <li>
+                  <a href="https://github.com/jayMondal45"
+                    ><i class="fa-brands fa-github"></i
+                  ></a>
+                </li>
+                <li>
+                  <a href="https://www.linkedin.com/in/jay-mondal-a948b433b/"
+                    ><i class="fa-brands fa-linkedin-in"></i
+                  ></a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.facebook.com/profile.php?id=100050738266596&mibextid=ZbWKwL"
+                    ><i class="fa-brands fa-facebook-f"></i
+                  ></a>
+                </li>
+                <li>
+                  <a href="https://x.com/Jaymondals45?s=09"
+                    ><i class="fa-brands fa-x-twitter"></i
+                  ></a>
+                </li>
+                <li>
+                  <a href="https://wa.me/917001583266"
+                    ><i class="fa-brands fa-whatsapp"></i
+                  ></a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="col-12 copyright_box">
+              <h6>© 2025 Cricket Clash. All Rights Reserved.</h6>
+              <h6>
+                Designed & Developed By -
+                <a href="https://jaymondal45.github.io/My-Portfolio/"
+                  ><strong>Joy Mondal</strong></a
+                >
+              </h6>
+            </div>
+
+            <!-- Modal Structure -->
+            <div id="resultModal" class="game-modal">
+              <div class="game-modal-content">
+                <h2 id="modalTitle"></h2>
+                <video id="modalVideo" controls></video>
+                <p id="modalMessage"></p>
+                <button class="close-btn" onclick="closeModal()">Close</button>
+              </div>
+            </div>
+
+            <!-- Modal Structure -->
+            <div id="rulesModal" class="modal" style="display: none">
+              <div class="modal-content">
+                <span class="close" style="cursor: pointer">&times;</span>
+                <h2>Rules of the Game:</h2>
+                <ul class="rules-list">
+                  <li>
+                    <strong>Draw:</strong> If you and the computer choose the
+                    same option, the round ends in a draw.
+                  </li>
+                  <li>
+                    <strong>Winning the Round:</strong> The choices follow a
+                    cyclic rule:
+                    <ul>
+                      <li>Bat beats Ball</li>
+                      <li>Ball beats Stump</li>
+                      <li>Stump beats Bat</li>
+                    </ul>
+                  </li>
+                  <li style="margin-bottom: 15px">
+                    <strong>Losing the Round:</strong> If the computer's choice
+                    defeats your choice based on the cycle above, you lose the
+                    round.
+                  </li>
+                </ul>
+
+                <h2>Examples</h2>
+                <ul class="examples-list">
+                  <li class="example-item">
+                    You choose Bat, and the computer chooses Ball -
+                    <span class="winning-combination">You WIN!</span>
+                  </li>
+                  <li class="example-item">
+                    You choose Ball, and the computer chooses Stump -
+                    <span class="winning-combination">You WIN!</span>
+                  </li>
+                  <li class="example-item">
+                    You choose Stump, and the computer chooses Bat -
+                    <span class="winning-combination">You WIN!</span>
+                  </li>
+                  <li class="example-item">
+                    You choose Bat, and the computer chooses Stump -
+                    <span class="losing-combination">You LOSE.</span>
+                  </li>
+                  <li class="example-item">
+                    You choose Ball, and the computer chooses Bat -
+                    <span class="losing-combination">You LOSE.</span>
+                  </li>
+                  <li class="example-item">
+                    You choose Stump, and the computer chooses Ball -
+                    <span class="losing-combination">You LOSE.</span>
+                  </li>
+                  <!-- <li class="example-item">Best of Luck!</li> -->
+                </ul>
+                <p>Best Of Luck! 🍀</p>
+              </div>
+            </div>
+          </div>
+          <div id="music-controls">🔊</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap 4 JS (optional, required for certain Bootstrap components) -->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+
+    <!------========= Background Sound Js =========--------->
+
+    <script src="js/background_sound.js"></script>
+
+    <!--------========= Custom Rules JS ===========--------->
+    <script src="js/rules.js"></script>
+
+    <!-------========== Resut Js =========---------->
+    <script src="js/result.js"></script>
+  </body>
+</html>
