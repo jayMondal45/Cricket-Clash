@@ -1,3 +1,10 @@
+// Declare score outside the playGame function to retain values across game rounds
+let score = {
+  won: 0,
+  lost: 0,
+  draw: 0,
+};
+
 function playGame(userChoice) {
   let randomNumber = Math.random() * 3;
   let computerChoice;
@@ -15,18 +22,23 @@ function playGame(userChoice) {
   let result;
   let videoSrc;
   if (userChoice === computerChoice) {
+    score.draw++;
     result =
-      "<span style='color: #ffd700;'>Upps! This Match Is Tie. Try Again.</span>";
+      `<span style='color: #ffd700;'>Upps! This Match Is Tie. Try Again.</span> <br> Won - ${score.won} Lost - ${score.lost} Tie - ${score.draw}`;
     videoSrc = "video/draw.mp4"; // Video for draw
   } else if (
     (userChoice === "Bat" && computerChoice === "Ball") ||
     (userChoice === "Ball" && computerChoice === "Stump") ||
     (userChoice === "Stump" && computerChoice === "Bat")
   ) {
-    result = "<span style='color: #228b22;'>Hurray! You Won This Match.</span>";
+    score.won++;
+    result =
+      `<span style='color: #228b22;'>Hurray! You Won This Match.</span> <br> Won - ${score.won} Lost - ${score.lost} Tie - ${score.draw}`;
     videoSrc = "video/won.mp4"; // Video for win
   } else {
-    result = `<span style='color: red;'>Ohooo! You Lost This Match. Better Luck Next Time.</span>`;
+    score.lost++;
+    result =
+      `<span style='color: red;'>Ohooo! You Lost This Match. Better Luck Next Time.</span> <br> Won - ${score.won} Lost - ${score.lost} Tie - ${score.draw}`;
     videoSrc = "video/lost.mp4"; // Video for loss
   }
 
