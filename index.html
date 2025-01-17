@@ -69,12 +69,13 @@
               fun!
             </p>
             <a href="#" id="openModalBtn">👉 Click here to learn the rules!</a>
-            <p style="margin-bottom: 40px">
-              Dominate the Pitch! Let the Clash Begin! 🏏🔥
-            </p>
+            <p>Dominate the Pitch! Let the Clash Begin! 🏏🔥</p>
+            <!-- 
+            <h1 style="margin: 0px">Choose Your Option.</h1> -->
 
-            <h1 style="margin: 0px">Time for Some Fun!</h1>
-            <h3>Choose Your Option.</h3>
+            <div class="display">
+              <input type="text" id="scoreDisplay" readonly />
+            </div>
 
             <div class="col-12 choose_btn">
               <button onclick="playGame('Bat')" class="option">
@@ -89,6 +90,9 @@
                 <img src="img/stump.jpg" />
                 <span style="color: #ffd700">Stump</span>
               </button>
+            </div>
+            <div class="col-12 reset">
+              <button onclick="resetGame()">Reset Score</button>
             </div>
 
             <div class="col-12 follow">
@@ -150,7 +154,7 @@
                 <h2>Rules of the Game:</h2>
                 <ul class="rules-list">
                   <li>
-                    <strong>Draw:</strong> If you and the computer choose the
+                    <strong>Tie:</strong> If you and the computer choose the
                     same option, the round ends in a draw.
                   </li>
                   <li>
