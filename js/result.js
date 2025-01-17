@@ -1,69 +1,121 @@
-// Declare score outside the playGame function to retain values across game rounds
-let score = {
-  won: 0,
-  lost: 0,
-  draw: 0,
+// Initialize score from localStorage or default values
+const initializeScore = () => {
+  const savedScore = localStorage.getItem("Score");
+  return savedScore ? JSON.parse(savedScore) : { won: 0, lost: 0, draw: 0 };
 };
 
+let score = initializeScore();
+updateScoreDisplay();
+
+// Play the game with the user's choice
 function playGame(userChoice) {
-  let randomNumber = Math.random() * 3;
-  let computerChoice;
+  const computerChoice = getComputerChoice();
+  const { resultMessage, videoSrc } = determineResult(
+    userChoice,
+    computerChoice
+  );
 
-  // Determine computer choice
-  if (randomNumber > 0 && randomNumber <= 1) {
-    computerChoice = "Bat";
-  } else if (randomNumber > 1 && randomNumber <= 2) {
-    computerChoice = "Ball";
-  } else {
-    computerChoice = "Stump";
-  }
+  // Update the modal content with the game result (without showing score)
+  updateModalContent(userChoice, computerChoice, resultMessage, videoSrc);
 
-  // Determine result
-  let result;
-  let videoSrc;
+  // Save updated score to localStorage
+  localStorage.setItem("Score", JSON.stringify(score));
+
+  // Update score display
+  updateScoreDisplay();
+
+  // Open the modal to display the result
+  openModal();
+}
+
+// Update the score display
+function updateScoreDisplay() {
+  const scoreDisplay = document.getElementById("scoreDisplay");
+  scoreDisplay.value = `Current Score - Won: ${score.won} | Lost: ${score.lost} | Tie: ${score.draw}`;
+}
+
+// Generate computer's choice randomly
+function getComputerChoice() {
+  const randomNumber = Math.floor(Math.random() * 3); // Generates 0, 1, or 2
+  return ["Bat", "Ball", "Stump"][randomNumber];
+}
+
+// Determine the result of the game
+function determineResult(userChoice, computerChoice) {
+  let resultMessage, videoSrc;
+
   if (userChoice === computerChoice) {
     score.draw++;
-    result =
-      `<span style='color: #ffd700;'>Upps! This Match Is Tie. Try Again.</span> <br> Won - ${score.won} Lost - ${score.lost} Tie - ${score.draw}`;
-    videoSrc = "video/draw.mp4"; // Video for draw
+    resultMessage = generateResultMessage(
+      "Tie",
+      `Upps! This Match Is Tie. Try Again.`
+    );
+    videoSrc = "video/draw.mp4";
   } else if (
     (userChoice === "Bat" && computerChoice === "Ball") ||
     (userChoice === "Ball" && computerChoice === "Stump") ||
     (userChoice === "Stump" && computerChoice === "Bat")
   ) {
     score.won++;
-    result =
-      `<span style='color: #228b22;'>Hurray! You Won This Match.</span> <br> Won - ${score.won} Lost - ${score.lost} Tie - ${score.draw}`;
-    videoSrc = "video/won.mp4"; // Video for win
+    resultMessage = generateResultMessage("Win", `Hurray! You Won This Match.`);
+    videoSrc = "video/won.mp4";
   } else {
     score.lost++;
-    result =
-      `<span style='color: red;'>Ohooo! You Lost This Match. Better Luck Next Time.</span> <br> Won - ${score.won} Lost - ${score.lost} Tie - ${score.draw}`;
-    videoSrc = "video/lost.mp4"; // Video for loss
+    resultMessage = generateResultMessage(
+      "Loss",
+      `Ohooo! You Lost This Match. Better Luck Next Time.`
+    );
+    videoSrc = "video/lost.mp4";
   }
 
-  // Show modal with result and set text color to #000
+  return { resultMessage, videoSrc };
+}
+
+// Generate a styled result message (without score in modal)
+function generateResultMessage(outcome, message) {
+  const colorMap = { Win: "#228b22", Loss: "red", Tie: "#ffd700" };
+  return `<span style='color: ${colorMap[outcome]};'>${message}</span>`;
+}
+
+// Update modal content with the result and play the video
+function updateModalContent(
+  userChoice,
+  computerChoice,
+  resultMessage,
+  videoSrc
+) {
   document.getElementById(
     "modalTitle"
   ).innerHTML = `<span style="color: #000;">You Chose - ${userChoice}</span>`;
   document.getElementById(
     "modalMessage"
-  ).innerHTML = `<span style="color: #000;">Computer Chose - ${computerChoice}.<br>${result}</span>`;
+  ).innerHTML = `<span style="color: #000;">Computer Chose - ${computerChoice}.<br>${resultMessage}</span>`;
 
   const videoElement = document.getElementById("modalVideo");
   videoElement.src = videoSrc;
   videoElement.load();
-  videoElement.play(); // Auto-play the video
-  openModal();
+  videoElement.play();
 }
 
+// Reset the score and clear localStorage
+function resetGame() {
+  localStorage.clear(); // Clear all localStorage data
+  score = { won: 0, lost: 0, draw: 0 }; // Reset score object
+  alert("Your scores have been reset!");
+
+  // Update the score display after reset
+  updateScoreDisplay();
+}
+
+// Display the modal
 function openModal() {
   document.getElementById("resultModal").style.display = "flex";
 }
 
+// Close the modal and reset the video
 function closeModal() {
   const videoElement = document.getElementById("modalVideo");
-  videoElement.pause(); // Pause the video
-  videoElement.currentTime = 0; // Reset the video to the beginning
+  videoElement.pause();
+  videoElement.currentTime = 0;
   document.getElementById("resultModal").style.display = "none";
 }
