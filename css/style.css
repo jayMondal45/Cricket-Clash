@@ -243,7 +243,7 @@ a {
 
 .option {
   width: 90px;
-  height: 90px;
+  height: 92px;
   text-align: center;
   border: none;
   outline: none;
@@ -263,6 +263,25 @@ a {
   border-radius: 50%;
 }
 
+.reset {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 30px;
+}
+
+.reset button {
+  padding: 12px 15px;
+  outline: none !important;
+  border: none !important;
+}
+
+.reset button:focus {
+  outline: none !important;
+  border: none !important;
+  background-color: #dc143c;
+  color: #fff;
+}
+
 .option img:focus {
   border: 5px solid red;
 }
@@ -270,7 +289,7 @@ a {
 .choose_btn {
   display: flex;
   justify-content: center;
-  padding-bottom: 50px;
+  padding-bottom: 40px;
 }
 
 .option span {
@@ -328,4 +347,15 @@ a {
   color: #fff;
   text-align: center;
   margin-bottom: 5px;
+}
+
+#scoreDisplay {
+  width: 100%;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  padding: 15px 0px 20px;
+  font-size: 18px;
+  font-weight: bold;
 }
