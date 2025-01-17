@@ -37,7 +37,7 @@ function updateScoreDisplay() {
 // Generate computer's choice randomly
 function getComputerChoice() {
   const randomNumber = Math.floor(Math.random() * 3); // Generates 0, 1, or 2
-  return ["Bat", "Ball", "Stump"][randomNumber];
+  return ["Bat", "Ball", "Stump"][randomNumber]; // This will return "Bat", "Ball", or "Stump"
 }
 
 // Determine the result of the game
